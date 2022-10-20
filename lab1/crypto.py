@@ -4,30 +4,32 @@ File: crypto.py
 ---------------
 Assignment 1: Cryptography
 Course: CS 41
-Name: <YOUR NAME>
-SUNet: <SUNet ID>
+Name: Gyorgy Viktor
+SUNet: ????????
 
 Replace this with a description of the program.
 """
 import utils
 
 # Caesar Cipher
+caesar_key = 5
 
-def encrypt_caesar(plaintext):
-    """Encrypt plaintext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+def encrypt_caesar(plaintext : str):
+    newText = []
+    for char in plaintext:
+        if char.isalpha():
+            char = ((ord(char) - ord('A')) + caesar_key) % 26 + ord('A')
+        newText.append(chr(char))
+    return ''.join(newText)
 
 
 def decrypt_caesar(ciphertext):
-    """Decrypt a ciphertext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
-
+    newText = []
+    for char in ciphertext:
+        if char.isalpha():
+            char = ((ord(char) - ord('A')) - caesar_key) % 26 + ord('A')
+        newText.append(chr(char))
+    return ''.join(newText)
 
 # Vigenere Cipher
 
