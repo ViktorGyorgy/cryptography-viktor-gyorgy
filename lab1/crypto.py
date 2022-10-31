@@ -33,20 +33,34 @@ def decrypt_caesar(ciphertext):
 
 # Vigenere Cipher
 
-def encrypt_vigenere(plaintext, keyword):
-    """Encrypt plaintext using a Vigenere cipher with a keyword.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+def encrypt_vigenere(plaintext: str, keyword: str):
+    newText = []
+    i = 0
+    for char in plaintext:
+        if char.isalpha():
+            k = keyword[i]
+            char = ((ord(char) - ord('A')) + ord(k)) % 26 + ord('A')
+        newText.append(chr(char))
+        i = (i + 1) % len(keyword)
+    return ''.join(newText)
 
 
 def decrypt_vigenere(ciphertext, keyword):
-    """Decrypt ciphertext using a Vigenere cipher with a keyword.
+    newText = []
+    i = 0
+    for char in ciphertext:
+        if char.isalpha():
+            k = keyword[i]
+            char = ((ord(char) - ord('A')) - ord(k)) % 26 + ord('A')
+        newText.append(chr(char))
+        i = (i + 1) % len(keyword)
+    return ''.join(newText)
 
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+def encrypt_scytale(plaintext: str, circumference: int):
+    return 0
+
+def decrypt_scytale(ciphertext, circumference):
+    return 0
 
 
 # Merkle-Hellman Knapsack Cryptosystem
