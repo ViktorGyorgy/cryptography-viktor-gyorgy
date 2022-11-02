@@ -80,13 +80,71 @@ def decrypt_scytale(ciphertext, circumference):
 
     solution = ""
 
-    print(chars)
     for j in range(math.ceil(n / circumference)):
         for i in range(circumference):
             if j >= len(chars[i]):
                 continue
             
             solution += chars[i][j]
+
+    return solution
+
+def encrypt_railfence(plaintext, num_rails):
+    strings = ["" for _ in range(num_rails)]
+
+    i = 0
+    it = 1
+    for char in plaintext:
+        strings[i] += char
+
+        if(i == 0):
+            it = 1
+        elif i == num_rails - 1:
+            it = -1
+
+        i += it
+    
+    return ''.join(strings)
+
+def decrypt_railfence(ciphertext, num_rails):
+    strings = ["" for _ in range(num_rails)]
+
+    n = len(ciphertext)
+    number_in_part = 2 * (num_rails - 1)
+    start = 0
+    end = math.ceil(n / number_in_part)
+    strings[0] = ciphertext[start:end]
+    start = end
+    for i in range(1, num_rails - 1):
+        end = start + 2 * math.floor(n / number_in_part) + (i < (n % number_in_part)) + ((number_in_part - i) < n % number_in_part)
+        strings[i] = ciphertext[start:end]
+
+        start = end
+
+    strings[num_rails - 1] = ciphertext[start:n]
+
+
+    ind_szel = 0
+    ind_kozep = -1
+    i = 0
+    it = 1
+    
+    solution = ""
+
+    for _ in range(n):
+        if  i == 0:
+            solution += strings[i][ind_szel]
+            it = 1
+            ind_kozep += 1
+        elif i == (num_rails - 1):
+            solution += strings[i][ind_szel]
+            ind_szel += 1
+            it = -1
+            ind_kozep += 1
+        else:
+            solution += strings[i][ind_kozep]
+
+        i += it
 
     return solution
 
