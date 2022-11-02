@@ -86,7 +86,6 @@ def decrypt_scytale(ciphertext, circumference):
             if j >= len(chars[i]):
                 continue
             
-            print(i, j, chars[i])
             solution += chars[i][j]
 
     return solution
