@@ -9,7 +9,7 @@ If you are a student, you shouldn't need to change anything in this file.
 """
 import random
 
-from crypto import (encrypt_caesar, decrypt_caesar,
+from crypto import (decrypt_scytale, encrypt_caesar, decrypt_caesar, encrypt_scytale,
                     encrypt_vigenere, decrypt_vigenere,
                     generate_private_key, create_public_key,
                     encrypt_mh, decrypt_mh)
@@ -21,7 +21,7 @@ from crypto import (encrypt_caesar, decrypt_caesar,
 
 def get_tool():
     print("* Tool *")
-    return _get_selection("(C)aesar, (V)igenere or (M)erkle-Hellman? ", "CVM")
+    return _get_selection("(C)aesar, (V)igenere, (S)cytale or (M)erkle-Hellman? ", "CVMS")
 
 
 def get_action():
@@ -130,6 +130,20 @@ def run_vigenere():
 
     set_output(output)
 
+def run_scytale():
+    action = get_action()
+    encrypting = action == 'E'
+    data = clean_caesar(get_input(binary=False))
+
+    print("* Transform *")
+    circumference = int(input("Cirumference? "))
+
+    print("{}crypting {} using Scytale cipher with cicumference {}...".format('En' if encrypting else 'De', data, circumference))
+
+    output = (encrypt_scytale if encrypting else decrypt_scytale)(data, circumference)
+
+    set_output(output)    
+
 
 def run_merkle_hellman():
     action = get_action()
@@ -161,6 +175,8 @@ def run_merkle_hellman():
     set_output(output)
 
 
+
+
 def run_suite():
     """
     Runs a single iteration of the cryptography suite.
@@ -175,7 +191,8 @@ def run_suite():
     commands = {
         'C': run_caesar,         # Caesar Cipher
         'V': run_vigenere,       # Vigenere Cipher
-        'M': run_merkle_hellman  # Merkle-Hellman Knapsack Cryptosystem
+        'M': run_merkle_hellman,  # Merkle-Hellman Knapsack Cryptosystem
+        'S': run_scytale
     }
     commands[tool]()
 

@@ -9,7 +9,9 @@ SUNet: ????????
 
 Replace this with a description of the program.
 """
+from winsound import PlaySound
 import utils
+import math
 
 # Caesar Cipher
 caesar_key = 5
@@ -57,10 +59,37 @@ def decrypt_vigenere(ciphertext, keyword):
     return ''.join(newText)
 
 def encrypt_scytale(plaintext: str, circumference: int):
-    return 0
+    chars = []
+    n = len(plaintext)
+
+    for i in range(circumference):
+        chars = chars + [plaintext[i + circumference * j] for j in range(math.floor(n / circumference) + (i < n % circumference))]
+
+    return ''.join(chars)
 
 def decrypt_scytale(ciphertext, circumference):
-    return 0
+    n = len(ciphertext)
+    chars = ["" for _ in range(circumference)]
+    
+    index = 0
+    for i in range(circumference):
+        for j in range(math.floor(n / circumference) + (i < n % circumference)):
+            chars[i] = chars[i] + ciphertext[index]
+            
+            index += 1
+
+    solution = ""
+
+    print(chars)
+    for j in range(math.ceil(n / circumference)):
+        for i in range(circumference):
+            if j >= len(chars[i]):
+                continue
+            
+            print(i, j, chars[i])
+            solution += chars[i][j]
+
+    return solution
 
 
 # Merkle-Hellman Knapsack Cryptosystem
