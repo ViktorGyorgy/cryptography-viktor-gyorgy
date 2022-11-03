@@ -9,7 +9,7 @@ If you are a student, you shouldn't need to change anything in this file.
 """
 import random
 
-from crypto import (decrypt_railfence, decrypt_scytale, encrypt_caesar, decrypt_caesar, encrypt_railfence, encrypt_scytale,
+from crypto import (decrypt_caesar_file, decrypt_railfence, decrypt_scytale, encrypt_caesar, decrypt_caesar, encrypt_caesar_file, encrypt_railfence, encrypt_scytale,
                     encrypt_vigenere, decrypt_vigenere,
                     generate_private_key, create_public_key,
                     encrypt_mh, decrypt_mh)
@@ -21,7 +21,7 @@ from crypto import (decrypt_railfence, decrypt_scytale, encrypt_caesar, decrypt_
 
 def get_tool():
     print("* Tool *")
-    return _get_selection("(C)aesar, (V)igenere, (S)cytale, (R)aiflence or (M)erkle-Hellman? ", "CVMSR")
+    return _get_selection("(C)aesar, (F)ile-caesar, (V)igenere, (S)cytale, (R)aiflence or (M)erkle-Hellman? ", "CVMSRF")
 
 
 def get_action():
@@ -37,7 +37,7 @@ def get_filename():
     return filename
 
 
-def get_input(binary=True):
+def get_input(binary=False):
     print("* Input *")
     choice = _get_selection("(F)ile or (S)tring? ", "FS")
     if choice == 'S':
@@ -50,8 +50,7 @@ def get_input(binary=True):
     else:
         filename = get_filename()
         flags = 'r'
-        if binary:
-            flags += 'b'
+        flags += 'b'
         with open(filename, flags) as infile:
             return infile.read()
 
@@ -64,8 +63,7 @@ def set_output(output, binary=True):
     else:
         filename = get_filename()
         flags = 'w'
-        if binary:
-            flags += 'b'
+        flags += 'b'
         with open(filename, flags) as outfile:
             print("Writing data to {}...".format(filename))
             outfile.write(output)
@@ -112,6 +110,18 @@ def run_caesar():
     print("{}crypting {} using Caesar cipher...".format('En' if encrypting else 'De', data))
 
     output = (encrypt_caesar if encrypting else decrypt_caesar)(data)
+
+    set_output(output)
+
+def run_file_caesar():
+    action = get_action()
+    encrypting = action == 'E'
+    data = get_input(binary=True)
+
+    print("* Transform *")
+    print("{}crypting {} using Caesar cipher...".format('En' if encrypting else 'De', data))
+
+    output = (encrypt_caesar_file if encrypting else decrypt_caesar_file)(data)
 
     set_output(output)
 
@@ -207,7 +217,8 @@ def run_suite():
         'V': run_vigenere,       # Vigenere Cipher
         'M': run_merkle_hellman,  # Merkle-Hellman Knapsack Cryptosystem
         'S': run_scytale,
-        'R': run_railfence
+        'R': run_railfence,
+        'F': run_file_caesar
     }
     commands[tool]()
 

@@ -14,7 +14,7 @@ import utils
 import math
 
 # Caesar Cipher
-caesar_key = 5
+caesar_key = 3
 
 def encrypt_caesar(plaintext : str):
     newText = []
@@ -25,13 +25,29 @@ def encrypt_caesar(plaintext : str):
     return ''.join(newText)
 
 
-def decrypt_caesar(ciphertext):
+def decrypt_caesar(ciphertext : str):
     newText = []
     for char in ciphertext:
         if char.isalpha():
             char = ((ord(char) - ord('A')) - caesar_key) % 26 + ord('A')
         newText.append(chr(char))
     return ''.join(newText)
+
+def encrypt_caesar_file(plainbytes : bytes):
+    key = 5
+    newbytes = bytearray(plainbytes)
+    for i in range(len(plainbytes)):
+        newbytes[i] = (int(plainbytes[i]) + key) % 256
+    return newbytes
+
+def decrypt_caesar_file(cipherbytes : bytes):
+    key = 5
+    newbytes = bytearray(cipherbytes)
+    for i in range(len(cipherbytes)):
+        newbytes[i] = (int(cipherbytes[i]) - key) % 256
+    return newbytes
+    
+    
 
 # Vigenere Cipher
 
@@ -41,7 +57,7 @@ def encrypt_vigenere(plaintext: str, keyword: str):
     for char in plaintext:
         if char.isalpha():
             k = keyword[i]
-            char = ((ord(char) - ord('A')) + ord(k)) % 26 + ord('A')
+            char = ((ord(char) - ord('A')) + (ord(k) - ord('A'))) % 26 + ord('A')
         newText.append(chr(char))
         i = (i + 1) % len(keyword)
     return ''.join(newText)
@@ -53,7 +69,7 @@ def decrypt_vigenere(ciphertext, keyword):
     for char in ciphertext:
         if char.isalpha():
             k = keyword[i]
-            char = ((ord(char) - ord('A')) - ord(k)) % 26 + ord('A')
+            char = ((ord(char) - ord('A')) - (ord(k) - ord('A'))) % 26 + ord('A')
         newText.append(chr(char))
         i = (i + 1) % len(keyword)
     return ''.join(newText)
