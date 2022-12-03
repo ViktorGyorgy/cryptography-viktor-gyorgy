@@ -44,8 +44,12 @@ def createKey(seed : list[int]):
   #first step: search for white joker
   moveJokers(seed)
   swapCardsBehindAndAfterJokers(seed)
-  # print(seed)
   swapWithN(seed)
-  return 0
+
+  first = abs(seed[0])
+  if first == 53:
+    return createKey(seed)
+
+  return seed[first], seed
 
 createKey([50, 45, 13, 11, 25, 23, 30, 39, 29, 34, 4, 46, 9, 16, 43, 7, 33, 38, 6, -53, 20, 18, 47, 41, 51, 35, 19, 12, 27, 22, 53, 52, 24, 42, 17, 21, 37, 32, 2, 48, 36, 15, 40, 44, 26, 3, 31, 14, 5, 10, 28, 8, 49, 1])
