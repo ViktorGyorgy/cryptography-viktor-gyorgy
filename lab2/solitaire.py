@@ -41,14 +41,22 @@ def swapWithN(seed : list[int]):
   seed.append(last)
 
 def createKey(seed : list[int]):
-  seed = seed.copy()
   #first step: search for white joker
+  key = 0
+  currentSeed = seed.copy()
+  for i in range(4):
+    newKey, currentSeed  = createOneKey(currentSeed)
+    key += newKey
+
+  return key, currentSeed
+
+def createOneKey(seed : list[int]):
   moveJokers(seed)
   swapCardsBehindAndAfterJokers(seed)
   swapWithN(seed)
 
   first = abs(seed[0])
   if first == 53:
-    return createKey(seed)
+    return createOneKey(seed)
 
   return seed[first], seed

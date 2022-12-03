@@ -10,7 +10,7 @@ PORT = 4000
 
 ALGORITHMS = {"blumBlumShub": blumblumShub.createKey, "solitaire": solitaire.createKey}
 
-file = open("config2.json")
+file = open("config1.json")
 conf = json.load(file)
 file.close()
 
@@ -24,7 +24,7 @@ def client_reader_thread(mys: socket.socket):
 
     # add decryption
     decoded = codeText(data)
-    print("Other user:" + decoded.decode('utf-8'))
+    print("Other user: " + decoded.decode('utf-8'))
 
 def server_reader_thread(mys: socket.socket):
   while True:
@@ -36,7 +36,7 @@ def server_reader_thread(mys: socket.socket):
 
     # add decryption
     decoded = codeText(data)
-    print("Other user:" + decoded.decode('utf-8'))
+    print("Other user: " + decoded.decode('utf-8'))
 
 def codeText(data: bytes):
   return streamCrypto.streamCrypt(data, ALGORITHMS[conf["algorithm"]], conf["initial_seed"])

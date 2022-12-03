@@ -2,7 +2,7 @@ import json
 import streamCrypto
 import solitaire
 
-f = open("config.json")
+f = open("config1.json")
 config = json.load(f)
 f.close()
 
