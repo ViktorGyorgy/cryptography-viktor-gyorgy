@@ -1,6 +1,7 @@
 import re
 
 #clever regex trick: https://iluxonchik.github.io/regular-expression-check-if-number-is-prime/
+#not that performant tho
 def isprime(n):
     return re.compile(r'^1?$|^(11+)\1+$').match('1' * n) is None
 
