@@ -30,15 +30,22 @@ def swapCardsBehindAndAfterJokers(seed : list[int]):
 def swapWithN(seed : list[int]):
   last = abs(seed[len(seed) - 1])
   if(last == 53):
-    print("nothing is happening")
     return
+
+  arr1 = seed[0:last]
+  arr2 = seed[last:(len(seed) - 1)]
+
+  seed.clear()
+  seed.extend(arr2)
+  seed.extend(arr1)
+  seed.append(last)
 
 def createKey(seed : list[int]):
   #first step: search for white joker
   moveJokers(seed)
   swapCardsBehindAndAfterJokers(seed)
-  print(seed)
+  # print(seed)
   swapWithN(seed)
   return 0
 
-createKey([32, 14, 10, 45, 6, 44, 49, 8, 11, 33, 12, 23, 9, 35, -53, 20, 30, 16, 24, 7, 52, 38, 29, 1, 17, 4, 3, 40, 18, 41, 26, 34, 43, 25, 42, 51, 48, 21, 47, 27, 50, 22, 5, 31, 39, 36, 46, 28, 37, 13, 2, 15, 19, 53])
+createKey([50, 45, 13, 11, 25, 23, 30, 39, 29, 34, 4, 46, 9, 16, 43, 7, 33, 38, 6, -53, 20, 18, 47, 41, 51, 35, 19, 12, 27, 22, 53, 52, 24, 42, 17, 21, 37, 32, 2, 48, 36, 15, 40, 44, 26, 3, 31, 14, 5, 10, 28, 8, 49, 1])
