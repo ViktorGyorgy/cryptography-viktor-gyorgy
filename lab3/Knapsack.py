@@ -44,10 +44,14 @@ def encodeByte(byte):
 
 def decodeByte(bytes):
   c = int.from_bytes(bytes, "little")
-  c2 = 1
+  c2 = c * s % q
 
+  a = [0 for i in range(n)]
+  
+  for i in range(n-1, -1, -1):
+    if(c2 >= w[i]):
+      c2 -= w[i]
+      a[i] = 1
 
-byte = bytes("h", 'utf8')[0]
-e = encodeByte(byte)
-d = decodeByte(int.to_bytes(e, e.bit_length(), "little"))
-print(d)
+  return utils.bits_to_byte(a)
+

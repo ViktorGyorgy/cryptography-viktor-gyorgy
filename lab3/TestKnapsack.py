@@ -42,7 +42,7 @@ class TestKnapsack(unittest.TestCase):
 
     encodedNum = Knapsack.encodeByte(byte)
     # print(encodedNum, byte, int.from_bytes(int.to_bytes(encodedNum, encodedNum.bit_length(), "little"), "little"))
-    #self.assertEqual(byte, Knapsack.decodeByte(byte))
+    self.assertEqual(byte, Knapsack.decodeByte(int.to_bytes(encodedNum, encodedNum.bit_length(), 'little')))
 
 
 if __name__ == '__main__':
