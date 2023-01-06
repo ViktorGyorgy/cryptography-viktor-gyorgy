@@ -7,6 +7,7 @@ n = 8
 w = []
 q = 0
 r = 1
+s = 0
 
 b = []
 
@@ -15,7 +16,8 @@ def generateKeys():
   global w
   global r
   global b
-  random.seed(datetime.now())
+  global s
+  random.seed(str(datetime.now()))
   x = random.randint(2, 10)
   w = []
   b = []
@@ -34,9 +36,18 @@ def generateKeys():
   for x in w:
     b.append(r * x % q)
 
+  s = utils.modinv(r, q)
+
 def encodeByte(byte):
   bits = utils.byte_to_bits(byte)
   return sum([x * y for x, y in zip(bits, b)])
 
-arr = bytes("hello", 'utf8')
-encodeByte(arr[0])
+def decodeByte(bytes):
+  c = int.from_bytes(bytes, "little")
+  c2 = 1
+
+
+byte = bytes("h", 'utf8')[0]
+e = encodeByte(byte)
+d = decodeByte(int.to_bytes(e, e.bit_length(), "little"))
+print(d)

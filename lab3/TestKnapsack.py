@@ -25,13 +25,24 @@ class TestKnapsack(unittest.TestCase):
     for i in range(Knapsack.n):
       self.assertEqual(Knapsack.b[i], Knapsack.w[i] * Knapsack.r % Knapsack.q)
 
+    print(Knapsack.r, Knapsack.s, Knapsack.q)
+    self.assertEqual(1, Knapsack.r * Knapsack.s % Knapsack.q)
+
   def test_Encode(self):
     byte = bytes("h", 'utf8')[0]
 
     encodedByte = Knapsack.encodeByte(byte)
+    
 
     bits = utils.byte_to_bits(byte)
     self.assertEqual(encodedByte, sum([x * y for x, y in zip(bits, Knapsack.b)]))
+
+  def test_Decode(self):
+    byte = bytes("h", 'utf8')[0]
+
+    encodedNum = Knapsack.encodeByte(byte)
+    # print(encodedNum, byte, int.from_bytes(int.to_bytes(encodedNum, encodedNum.bit_length(), "little"), "little"))
+    #self.assertEqual(byte, Knapsack.decodeByte(byte))
 
 
 if __name__ == '__main__':
