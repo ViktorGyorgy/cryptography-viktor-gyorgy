@@ -3,7 +3,6 @@ import Knapsack
 import math
 
 class TestKnapsack(unittest.TestCase):
-
   def testKeysGeneration(self):
     Knapsack.generateKeys()
 

@@ -29,4 +29,5 @@ def generateKeys():
 
   for x in w:
     b.append(r * x % q)
-  
+
+
