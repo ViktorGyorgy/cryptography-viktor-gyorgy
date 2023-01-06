@@ -1,5 +1,5 @@
 def streamCrypt(data: bytes, cryptoFunction, initialSeed : any):
-  newData =[]
+  newData = []
   newSeed = initialSeed
   for byte in data:
     key, newSeed = cryptoFunction(newSeed)
