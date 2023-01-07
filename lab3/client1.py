@@ -10,7 +10,7 @@ OTHER_PORT = 8002
 
 ALGORITHMS = {"solitaire":  solitaire.createKey}
 
-file = open("config1.json")
+file = open("./config1.json")
 conf = json.load(file)
 file.close()
 
@@ -54,13 +54,40 @@ def main():
 
     print("Public key sent to server, the key is " +  str(Knapsack.b))
 
-    print("Waiting for thepublic key of other client!")
-
-    pubKeys = [int(i) for i in s.recv(2048).decode('utf8').split('\n')]
-    print("The pubkeys of the other is " + str(pubKeys))
-    Knapsack.b = pubKeys
+    
 
     #Creating socket to send solitaira seed to other
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s1:
+        s1.bind((HOST, MY_PORT))
+        s1.listen()
+
+        conn, addr = s1.accept()
+
+
+        print("Waiting for thepublic key of other client!")
+
+        pubKeys = [int(i) for i in s.recv(2048).decode('utf-8').split('\n')]
+        print("The pubkeys of the other is " + str(pubKeys))
+        Knapsack.b = pubKeys
+
+      
+        
+        
+
+        #sending solitaire initial seed
+        print("Sending the solitaire seed")
+        print("initialSeed = " + str(solitaireSeed))
+
+        encodedSeed = Knapsack.encodeBytes("\n".join([str(i) for i in solitaireSeed]).encode())
+        print("encodedSeed = " + str(encodedSeed))
+        conn.sendall("\n".join([str(i) for i in encodedSeed]).encode())
+
+        start_new_thread(server_reader_thread, (conn, ))
+
+        while True:
+          text = input("Write something!\n")
+          data = codeText(text.encode('utf-8'))
+          conn.sendall(data)
 
 
 main()

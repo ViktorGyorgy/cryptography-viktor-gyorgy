@@ -44,8 +44,8 @@ def encodeByte(byte):
 def encodeBytes(b):
   return [encodeByte(i) for i in b]
 
-def decodeByte(bytes):
-  c = int.from_bytes(bytes, "little")
+def decodeByte(num):
+  c = int.from_bytes(num, "little")
   c2 = c * s % q
 
   a = [0 for i in range(n)]
@@ -56,4 +56,10 @@ def decodeByte(bytes):
       a[i] = 1
 
   return utils.bits_to_byte(a)
+
+def decodeBytes(myBytes):
+  a = bytearray()
+  for i in myBytes:
+    a.append(decodeByte(i))
+  return a
 

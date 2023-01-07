@@ -22,7 +22,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         PORT += 1
 
         print("Getting the public key from client " + str(PORT))
-        keys = [int(i) for i in conn.recv(2048).decode('utf8').split('\n')]
+        keys = [int(i) for i in conn.recv(2048).decode('utf-8').split('\n')]
 
         KnapsackKeys[PORT] = keys
         print("Knapsakkeys: " + str(KnapsackKeys))
