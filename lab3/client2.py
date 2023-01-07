@@ -34,6 +34,7 @@ def server_reader_thread(mys: socket.socket):
     print("Other user: " + decoded.decode('utf-8'))
 
 def codeText(data: bytes):
+  global solitaireSeed
   return streamCrypto.streamCrypt(data, solitaire.createKey, solitaireSeed)
 
 def main():
@@ -55,6 +56,7 @@ def main():
 
   #connect to other client and get the Knapsack
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+      global solitaireSeed
       s.connect((HOST, MY_PORT))
 
       #get the solitaire seed

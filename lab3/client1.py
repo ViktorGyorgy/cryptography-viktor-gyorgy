@@ -41,6 +41,7 @@ def server_reader_thread(mys: socket.socket):
     print("Other user: " + decoded.decode('utf-8'))
 
 def codeText(data: bytes):
+  global solitaireSeed
   return streamCrypto.streamCrypt(data, solitaire.createKey, solitaireSeed)
 
 def main():
@@ -72,7 +73,7 @@ def main():
 
       
         
-        
+        global solitaireSeed
 
         #sending solitaire initial seed
         print("Sending the solitaire seed")
