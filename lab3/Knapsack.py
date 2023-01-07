@@ -2,7 +2,6 @@ import random
 import math
 from datetime import datetime
 import utils
-
 n = 8
 w = []
 q = 0
@@ -41,6 +40,9 @@ def generateKeys():
 def encodeByte(byte):
   bits = utils.byte_to_bits(byte)
   return sum([x * y for x, y in zip(bits, b)])
+
+def encodeBytes(b):
+  return [encodeByte(i) for i in b]
 
 def decodeByte(bytes):
   c = int.from_bytes(bytes, "little")
