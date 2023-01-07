@@ -36,7 +36,6 @@ def server_reader_thread(mys: socket.socket):
       print("BYE")
       break
 
-    # add decryption
     decoded = codeText(data)
     print("Other user: " + decoded.decode('utf-8'))
 
